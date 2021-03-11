@@ -14,7 +14,7 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using MQTTnet.Client;
 using System.Threading.Tasks;
-using Windows.UI;
+using Microsoft.UI;
 using Microsoft.UI.Xaml.Shapes;
 using MQTTnet.Client.Options;
 using MQTTnet;
@@ -47,12 +47,11 @@ namespace MqttK64FTester
             var factory = new MqttFactory();
             _client = factory.CreateMqttClient();
             _client.ApplicationMessageReceivedHandler = this;
-            /*var result = await _client.ConnectAsync(options);
+            var result = await _client.ConnectAsync(options);
             if(result.ResultCode == MqttClientConnectResultCode.Success)
             {
                 await _client.SubscribeAsync("device/led_hw/+/r");
-            }
-            */
+            }            
         }
 
         private async Task SendMessage(string topic, string payload)
@@ -76,7 +75,18 @@ namespace MqttK64FTester
             if (splittedTopic.Length < 3) return;
             var deviceNumber = splittedTopic[2];
             var ellipse = deviceNumber == "1" ? RedLed : GreenLed;
-            await ChangeColor(ellipse, GetColor(ellipse, message));
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+            {
+                try
+                {
+                    var color = GetColor(ellipse, message);
+                    await ChangeColor(ellipse, GetColor(ellipse, message));
+                }
+                catch (Exception ex)
+                {
+
+                }
+            });
         }
 
         private SolidColorBrush GetColor(Ellipse ellipse, string message)
