@@ -1,0 +1,36 @@
+﻿<Page
+    x:Class="MqttK64FTester.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MqttK64FTester"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Loaded="Page_Loaded"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Ellipse Height="200" Width="200" Fill="Black" x:Name="RedLed"  />
+                <Button Content="Encender" Click="RedButton_Click" />
+            </StackPanel>
+            <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Ellipse Height="200" Width="200" Fill="Black" x:Name="GreenLed"  />
+                <Button Content="Encender" Click="GreenButton_Click" />
+            </StackPanel>
+        </Grid>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1">
+            <Button Content="Botón virtual" Click="VirtualButton_Click" />
+        </StackPanel>
+    </Grid>
+</Page>
